@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>商品购买</title>
+	<link rel="shortcut icon" href="static/img/favicon.png" />
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		 <!-- Stylesheets -->
+		<link href="static/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+      .responsive {
+            padding: 0 6px;
+            float: left;
+            margin:80px; 
+            width: 50%;
+        }
+        .responsive1 {
+            padding: 0 6px;
+            float: right;
+            margin:50px; 
+            width: 24.99999%;
+            font-size: 20px;
+        }
+         .responsive2 {
+            padding: 0 6px;
+            float: right;
+            margin:100px; 
+            width: 80%;
+            font-size: 30px;
+
+            border:1px solid red;
+            outline-style:dotted;
+            outline-color:#00ff00;
+        }
+    </style>
+</head>
+<body>
+<div class="pull-right">
+	<ul class="nav nav-pills pull-right">
+		
+		<li><a href="/">返回主页</a></li>
+	</ul>
+</div>
+	<div class="container">
+	<div class="row clearfix">
+		<div class="responsive" >
+			<div id="myCarousel" class="carousel slide">
+			  <!-- 轮播（Carousel）指标 -->
+			  <ol class="carousel-indicators">
+			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			    <li data-target="#myCarousel" data-slide-to="1"></li>
+			    <li data-target="#myCarousel" data-slide-to="2"></li>
+			  </ol>   
+			  <!-- 轮播（Carousel）项目 -->
+			  <div class="carousel-inner">
+			    <div class="item active">
+			      <img src="static/img/1.jpg" alt="First slide">
+			    </div>
+			    <div class="item">
+			      <img src="static/img/2.jpg" alt="Second slide">
+			    </div>
+			    <div class="item">
+			      <img src="static/img/3.jpg" alt="Third slide">
+			    </div>
+			  </div>
+			  <!-- 轮播（Carousel）导航 -->
+			  <a class="carousel-control left" href="#myCarousel" 
+			     data-slide="prev">&lsaquo;</a>
+			  <a class="carousel-control right" href="#myCarousel" 
+			     data-slide="next">&rsaquo;</a>
+			</div> 
+
+      <div class="responsive2">
+      <p>用户评论</p>
+        <div class="pull-left">
+         
+          {{range .Comments}}<p>匿名用户:</p>{{.}}{{end}}
+        </div>
+    		</div>
+    		<div class="col-md-6 column">
+    			
+    		</div>
+    	</div>
+	<form action="/commodity" method="post">
+   <div class="responsive1">
+    <div class="col-md-12 column">
+    <br><br><br>
+      <p>商品名称：{{.Comm_name}}</p>
+      <br>
+      <p>商品价格：{{.Comm_price}}</p>
+      <br>
+      <label>购买数量：</label><br>
+      <br>
+      <input type="text"  placeholder="1" aria-describedby="basic-addon1" name="Count">
+      <br>
+      <br>
+      <button type="submit" class="nav nav-pills pull-buttom">购买</button>
+    </div>
+  </div> 
+  </form>
+
+</div>
+</body>
+</html>

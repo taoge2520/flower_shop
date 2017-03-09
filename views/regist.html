@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		.div1{
+			position:relative;
+			top:200px;
+			float: left;
+		}
+		.div2{
+			position:relative;
+			top:200px;
+			left: 150px;
+			
+		}
+	
+	</style>
+	<title>login</title>
+	<link rel="shortcut icon" href="static/img/favicon.png" />
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		 <!-- Stylesheets -->
+		<link href="static/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container" style="width: 500px;">
+			<form class="form-horizontal" method="POST" action="/login">
+			  <div class="form-group">
+			    <label class="div1">请输入帐号：</label>
+			    <div class="col-lg-6">
+			      <input id="uname" class="div1" name="uname" placeholder="Account">
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label class="div1">请输入密码：</label>
+			    <div class="col-lg-6">
+			      <input id="pwd" type="password" class="div1" name="pwd" placeholder="Password">
+			    </div>
+			  </div>
+			  
+			   <div class="form-group">
+			    <label class="div1">请输入手机：</label>
+			    <div class="col-lg-6">
+			      <input id="pwd" type="text" class="div1" name="phone" placeholder="Password">
+			    </div>
+			  </div>
+
+			  <div class="div2">
+			   
+			    	<a href="/login"><button type="submit"  onclick="return checkInput();">注册</button></a>
+			      	<button onclick="return backToHome();">返回</button>
+			      	<script type="text/javascript">
+				      	function backToHome() {
+				      		window.location.href = "/";
+				      		return false;
+				      	}
+
+				      	function checkInput() {
+				      		var uname = document.getElementById("uname");
+				      		if (uname.value.length == 0) {
+				      			alert("帐号不能为空");
+				      			return false;
+				      		}
+
+				      		var pwd = document.getElementById("pwd");
+				      		if (pwd.value.length == 0) {
+				      			alert("密码不能为空");
+				      			return false;
+				      		}
+				      	}
+			      	</script>
+			
+			  </div>
+			</form>
+		</div>
+</body>
+</html>

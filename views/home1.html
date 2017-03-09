@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>Home</title>
+	  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<style type="text/css">
+		
+		#div1 {
+			position:absolute;
+			left:20px;
+			top:20px;
+			width:300px;
+			/*margin-left:10px;
+			margin-top:10px;
+			
+			height:400px;*/
+			
+			/*border:solid 1px #000;*/
+		}
+
+		#div1_1{
+			/*margin-top:50px;*/
+			height:150px;
+			padding-left:40px;
+			/*padding-top:50px;*/
+			border:solid 1px #000;
+		}
+		#div1_2{
+			margin-top:50px;
+			margin-left:15px;
+		}
+		
+		#div2{
+			position:absolute;
+			left:400px;
+			top:20px;
+			vertical-align:bottom
+			/*margin-top:-400px;
+			margin-left:350px;
+			width:300px;
+			height:400px;*/
+			/*border:solid 1px #000;*/
+		}
+
+		#div2_1{
+			position:absolute;
+			left:0px;
+			top:0px;
+
+			width:300px;
+			height:200px;
+			border:solid 1px #000;
+		}
+		#div2_2{
+			position:absolute;
+			left:350px;
+			top:0px;
+			width:300px;
+			height:200px;
+			border:solid 1px #000;
+		}
+			#div2_3{
+			position:absolute;
+			left:0px;
+			top:250px;
+			width:300px;
+			height:200px;
+			border:solid 1px #000;
+		}
+			#div2_4{
+			position:absolute;
+			left:350px;
+			top:250px;
+			width:300px;
+			height:200px;
+			border:solid 1px #000;
+		}
+		#div2_5{
+			position:absolute;
+			left:200px;
+			top:450px;
+			width:300px;
+		
+
+		}
+		#div2_1_1{
+			position:absolute;
+			left:200px;
+			top:0px;
+
+			width:100px;
+			height:200px;
+			line-height:13px;
+			/*border:solid 1px #000;*/
+			/*line-height:100%; */
+			overflow:hidden;
+		}
+		#div2_2_1{
+			position:absolute;
+			left:200px;
+			top:0px;
+
+			width:100px;
+			height:200px;
+			line-height:20px;
+			/*border:solid 1px #000;*/
+			/*line-height:100%; */
+			overflow:hidden;
+		}
+		#div2_3_1{
+			position:absolute;
+			left:200px;
+			top:0px;
+
+			width:100px;
+			height:200px;
+			/*border:solid 1px #000;*/
+			line-height:100%; 
+			overflow:hidden;
+		}
+		#div2_4_1{
+			position:absolute;
+			left:200px;
+			top:0px;
+
+			width:100px;
+			height:200px;
+			/*border:solid 1px #000;*/
+			line-height:100%; 
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+<br>
+<div class="pull-right">
+	<ul class="nav nav-pills pull-right">
+		{{if .IsLogin}}
+		<li><a href="/login?exit=true">退出登录</a></li>
+		{{else}}
+		<li><a href="/login">登录</a></li>
+		{{end}}
+		<li><a href="/regist">注册</a></li>
+	</ul>
+</div>
+	<div id="div1" >
+		<div id="div1_1">
+			<div id="div1_2">
+				<font size=12><a href="product.html">用户管理</a>
+			</div>
+		</div>
+		<div  id="div1_1">
+			<div id="div1_2">
+				<font size=12><a href="product.html">商品管理</a>
+			</div>
+		</div>
+		<div  id="div1_1">
+			<div id="div1_2">
+				<font size=12>管理
+			</div>
+		</div>
+	</div>
+	
+	<div id="div2">
+		<div >
+			<div id="div2_1">
+				<a href="product.html" title="product">
+					<img src="static\img\1.jpg" width="200" height="200" >
+				</a>
+			</div>
+			<div id="div2_1_1">
+				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
+			</div>
+		</div>	
+		<div id="div2_2">
+			<img src="static\img\1.jpg" width="200" height="200" >
+			<div id="div2_2_1">
+				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
+			</div>
+		</div>
+		<div id="div2_3">
+			<img src="static\img\1.jpg" width="200" height="200" >
+			<div id="div2_2_1">
+				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
+			</div>
+		</div>
+		<div id="div2_4">
+			<img src="static\img\1.jpg" width="200" height="200" >
+			<div id="div2_2_1">
+				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
+			</div>
+		</div>
+		<br>
+		<div id="div2_5">
+		<nav aria-label="Page navigation" id="nav1">
+		  <ul class="pagination" text-align="buttom">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#first">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		</div>
+	</div>
+
+</body>
+</html>

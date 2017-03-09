@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>网页主页</title> .
+ <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    
+<style>
+.text{
+	text-align:center;
+}
+div.img {
+    border: 1px solid #ccc;
+}
+
+div.img:hover {
+    border: 1px solid #777;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    float: left;
+    margin:0 auto; 
+    width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px){
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+</head>
+<body>
+<div class="pull-right">
+	<ul class="nav nav-pills pull-right">
+		<li><a href="/user">用户中心</a></li>
+		{{if .IsLogin}}
+		<li><a href="/login?exit=true">退出登录</a></li>
+		{{else}}
+		<li><a href="/login">登录</a></li>
+		{{end}}
+		<li><a href="/regist">注册</a></li>
+	</ul>
+</div>
+
+<h2 style="text-align:center">欢迎来到主页</h2>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="/commodity">
+      <img src={{.Pic1}} alt="Trolltunga Norway" width="300" height="200">
+    </a>
+    <div class="desc">{{.Desc1}}</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_forest.jpg">
+      <img src={{.Pic2}} alt="Forest" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc2}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_lights.jpg">
+      <img src={{.Pic3}} alt="Northern Lights" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc3}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_mountains.jpg">
+      <img src={{.Pic4}} alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc4}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_mountains.jpg">
+      <img src={{.Pic5}} alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc5}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_mountains.jpg">
+      <img src={{.Pic6}} alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc6}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_mountains.jpg">
+      <img src={{.Pic7}} alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc7}}</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="img_mountains.jpg">
+      <img src={{.Pic8}} alt="Mountains" width="600" height="400">
+    </a>
+    <div class="desc">{{.Desc8}}</div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div style="padding:6px;">
+  <div style="margin:0 auto; width:200px; height:50px;">
+		<nav aria-label="Page navigation" id="nav1">
+		  <ul class="pagination" text-align="buttom">
+		    <li>
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li><a href="#first">1</a></li>
+		    <li><a href="#second">2</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+  </div>
+  <!--<h4>重置浏览器大小查看效果</h4>-->
+  <br>
+  <br>
+   <div class="text" >
+          <p text-align="center">Copyright©2012-2016 版权归属 XXX有限公司 闽ICP备********号-25</p>
+    </div>
+
+</div>
+
+</body>
+</html>
