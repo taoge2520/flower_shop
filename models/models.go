@@ -16,6 +16,20 @@ type Home_comm struct {
 	Name    string
 	Picture string
 }
+type order_datas struct {
+	Id        int
+	Comm_name string
+	User      string
+	Count     int
+	Prices    int
+}
+type Comm_datas struct {
+	Id         int
+	Name       string
+	Price      int
+	Count      int
+	Sell_count int
+}
 
 func init() {
 	conn := beego.AppConfig.String("Conn")
@@ -42,6 +56,7 @@ func Upd_phone(uname string, p string) (err error) {
 	if err != nil {
 		return
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(p, uname)
 	if err != nil {
 		return
@@ -61,6 +76,7 @@ func Insert(name string, pwd string, phone string) (err error) {
 	if err != nil {
 		return
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(name, pwd, phone)
 	if err != nil {
 		return
@@ -106,9 +122,70 @@ func Add_commodity(cname string, uname string, t int, totle int) (err error) {
 	if err != nil {
 		return
 	}
+	defer stmt.Close()
 	_, err = stmt.Exec(cname, uname, t, totle)
 	if err != nil {
 		return
+	}
+	return
+}
+func Get_order(user string) (s []order_datas, err error) {
+	rows, err := DB.Query(`select id ,comm_name,user_name,count_c,totle_c from order_com where user_name=?`, user)
+	if err != nil {
+		return
+	}
+
+	for rows.Next() {
+		var t order_datas
+		err = rows.Scan(&t.Id, &t.Comm_name, &t.User, &t.Count, &t.Prices)
+
+		if err != nil {
+			return
+		}
+		s = append(s, t)
+
+	}
+	return
+}
+
+func Get_allcomm() (s []Comm_datas, err error) {
+	rows, err := DB.Query(`select id ,name,price,count,sell_count from commodity`)
+	if err != nil {
+		return
+	}
+
+	for rows.Next() {
+		var t Comm_datas
+		err = rows.Scan(&t.Id, &t.Name, &t.Price, &t.Count, &t.Sell_count)
+
+		if err != nil {
+			return
+		}
+		s = append(s, t)
+
+	}
+	return
+}
+
+func Check_comment(id int, str string, user string) (err error) {
+	var t int
+	err = DB.QueryRow("select id from comment where id =? and user=?", id, user).Scan(&t)
+	if err != nil {
+		stmt, _ := DB.Prepare("insert comment set user=?,content=?")
+		defer stmt.Close()
+		_, err = stmt.Exec(user, str)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+	stmt, err := DB.Prepare("update comment set content=? where id=?")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(str, t)
+	if err != nil {
+		fmt.Println(err)
 	}
 	return
 }

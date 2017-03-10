@@ -2,8 +2,83 @@
 <html>
 <head>
 	<title>订单查看</title>
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+	<style type="text/css">
+		table,td,th
+{
+	border:1px solid black;
+}
+table
+{
+	width:100%;
+}
+th
+{
+	height:50px;
+}
+.box{
+    width:50%; margin-top:10%; margin:auto; padding:28px;
+    height:350px; border:1px #111 solid;
+    display:none;            /* 默认对话框隐藏 */
+}
+.box.show{display:block;} 
+.box .x{ font-size:18px; text-align:right; display:block;}
+.box input{width:80%; font-size:18px; margin-top:18px;}
+	</style>
 </head>
 <body>
-	<p>test</p>
+	<div class="bs-example" data-example-id="striped-table">
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>订单号</th>
+	          <th>商品名</th>
+	          <th>用户名</th>
+	          <th>数量</th>
+	          <th>总价</th>
+	          
+	        </tr>
+	      </thead>
+	      <tbody>
+	        {{range .Order_datas}}
+			<tr>
+	          <td>{{.Id}}</td>
+	          <td>{{.Comm_name}}</td>
+	          <td>{{.User}}</td>
+	          <td>{{.Count}}</td>
+	          <td>{{.Prices}}</td>
+	        </tr>
+			{{end}}	       
+	      </tbody>
+	    </table>
+	    <input type="button" onClick="msgbox(1)" value="评价" style="float: right;">
+	    <br><br>
+	  </div><!-- /example -->
+	  <a href="/"><p align="right">返回</p></a>
+	 	
+    
+
+    <script>  
+        function msgbox(n){
+            document.getElementById('inputbox').style.display=n?'block':'none';     /* 点击按钮打开/关闭 对话框 */
+        }
+     </script>  
+     <form action="/order" method="post">
+     	<div id='inputbox' class="box">
+        <a class='x' href=''; onclick="msgbox(0); return false;">关闭</a>
+        <p>订单号：</p>
+        <input type="text" name="Orderid">
+        <p>评价：</p>
+        <input type="text" name="Content">
+        <input type="submit" value="确定">
+     </div>
+     </form>
+     
+</div>
 </body>
 </html>

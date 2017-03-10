@@ -12,6 +12,11 @@ type UserController struct {
 }
 
 func (this *UserController) Get() {
+	if Login_user == "" {
+		this.Redirect("/", 302)
+		return
+
+	}
 	phone, err := models.Get_phone(Login_user)
 	if err != nil {
 		fmt.Println(err)

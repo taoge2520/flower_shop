@@ -1,219 +1,256 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-	<title>Home</title>
-	  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-	<style type="text/css">
-		
-		#div1 {
-			position:absolute;
-			left:20px;
-			top:20px;
-			width:300px;
-			/*margin-left:10px;
-			margin-top:10px;
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="static/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">欢迎超管</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/user">管理中心</a></li>
 			
-			height:400px;*/
+			<li><a href="/login">退出登录</a></li>
 			
-			/*border:solid 1px #000;*/
-		}
+			
+			
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="这个搜索并没有什么软用">
+          </form>
+        </div>
+      </div>
+    </nav>
 
-		#div1_1{
-			/*margin-top:50px;*/
-			height:150px;
-			padding-left:40px;
-			/*padding-top:50px;*/
-			border:solid 1px #000;
-		}
-		#div1_2{
-			margin-top:50px;
-			margin-left:15px;
-		}
-		
-		#div2{
-			position:absolute;
-			left:400px;
-			top:20px;
-			vertical-align:bottom
-			/*margin-top:-400px;
-			margin-left:350px;
-			width:300px;
-			height:400px;*/
-			/*border:solid 1px #000;*/
-		}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+			<br><br><br>
+            <li class="active"><a href="/manage">商品管理 <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">下面的点了也没用</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
 
-		#div2_1{
-			position:absolute;
-			left:0px;
-			top:0px;
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+          </div>
 
-			width:300px;
-			height:200px;
-			border:solid 1px #000;
-		}
-		#div2_2{
-			position:absolute;
-			left:350px;
-			top:0px;
-			width:300px;
-			height:200px;
-			border:solid 1px #000;
-		}
-			#div2_3{
-			position:absolute;
-			left:0px;
-			top:250px;
-			width:300px;
-			height:200px;
-			border:solid 1px #000;
-		}
-			#div2_4{
-			position:absolute;
-			left:350px;
-			top:250px;
-			width:300px;
-			height:200px;
-			border:solid 1px #000;
-		}
-		#div2_5{
-			position:absolute;
-			left:200px;
-			top:450px;
-			width:300px;
-		
+          <h2 class="sub-header">Section title</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>libero</td>
+                  <td>Sed</td>
+                  <td>cursus</td>
+                  <td>ante</td>
+                </tr>
+                <tr>
+                  <td>1,004</td>
+                  <td>dapibus</td>
+                  <td>diam</td>
+                  <td>Sed</td>
+                  <td>nisi</td>
+                </tr>
+                <tr>
+                  <td>1,005</td>
+                  <td>Nulla</td>
+                  <td>quis</td>
+                  <td>sem</td>
+                  <td>at</td>
+                </tr>
+                <tr>
+                  <td>1,006</td>
+                  <td>nibh</td>
+                  <td>elementum</td>
+                  <td>imperdiet</td>
+                  <td>Duis</td>
+                </tr>
+                <tr>
+                  <td>1,007</td>
+                  <td>sagittis</td>
+                  <td>ipsum</td>
+                  <td>Praesent</td>
+                  <td>mauris</td>
+                </tr>
+                <tr>
+                  <td>1,008</td>
+                  <td>Fusce</td>
+                  <td>nec</td>
+                  <td>tellus</td>
+                  <td>sed</td>
+                </tr>
+                <tr>
+                  <td>1,009</td>
+                  <td>augue</td>
+                  <td>semper</td>
+                  <td>porta</td>
+                  <td>Mauris</td>
+                </tr>
+                <tr>
+                  <td>1,010</td>
+                  <td>massa</td>
+                  <td>Vestibulum</td>
+                  <td>lacinia</td>
+                  <td>arcu</td>
+                </tr>
+                <tr>
+                  <td>1,011</td>
+                  <td>eget</td>
+                  <td>nulla</td>
+                  <td>Class</td>
+                  <td>aptent</td>
+                </tr>
+                <tr>
+                  <td>1,012</td>
+                  <td>taciti</td>
+                  <td>sociosqu</td>
+                  <td>ad</td>
+                  <td>litora</td>
+                </tr>
+                <tr>
+                  <td>1,013</td>
+                  <td>torquent</td>
+                  <td>per</td>
+                  <td>conubia</td>
+                  <td>nostra</td>
+                </tr>
+                <tr>
+                  <td>1,014</td>
+                  <td>per</td>
+                  <td>inceptos</td>
+                  <td>himenaeos</td>
+                  <td>Curabitur</td>
+                </tr>
+                <tr>
+                  <td>1,015</td>
+                  <td>sodales</td>
+                  <td>ligula</td>
+                  <td>in</td>
+                  <td>libero</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		}
-		#div2_1_1{
-			position:absolute;
-			left:200px;
-			top:0px;
-
-			width:100px;
-			height:200px;
-			line-height:13px;
-			/*border:solid 1px #000;*/
-			/*line-height:100%; */
-			overflow:hidden;
-		}
-		#div2_2_1{
-			position:absolute;
-			left:200px;
-			top:0px;
-
-			width:100px;
-			height:200px;
-			line-height:20px;
-			/*border:solid 1px #000;*/
-			/*line-height:100%; */
-			overflow:hidden;
-		}
-		#div2_3_1{
-			position:absolute;
-			left:200px;
-			top:0px;
-
-			width:100px;
-			height:200px;
-			/*border:solid 1px #000;*/
-			line-height:100%; 
-			overflow:hidden;
-		}
-		#div2_4_1{
-			position:absolute;
-			left:200px;
-			top:0px;
-
-			width:100px;
-			height:200px;
-			/*border:solid 1px #000;*/
-			line-height:100%; 
-			overflow:hidden;
-		}
-	</style>
-</head>
-<body>
-<br>
-<div class="pull-right">
-	<ul class="nav nav-pills pull-right">
-		{{if .IsLogin}}
-		<li><a href="/login?exit=true">退出登录</a></li>
-		{{else}}
-		<li><a href="/login">登录</a></li>
-		{{end}}
-		<li><a href="/regist">注册</a></li>
-	</ul>
-</div>
-	<div id="div1" >
-		<div id="div1_1">
-			<div id="div1_2">
-				<font size=12><a href="product.html">用户管理</a>
-			</div>
-		</div>
-		<div  id="div1_1">
-			<div id="div1_2">
-				<font size=12><a href="product.html">商品管理</a>
-			</div>
-		</div>
-		<div  id="div1_1">
-			<div id="div1_2">
-				<font size=12>管理
-			</div>
-		</div>
-	</div>
-	
-	<div id="div2">
-		<div >
-			<div id="div2_1">
-				<a href="product.html" title="product">
-					<img src="static\img\1.jpg" width="200" height="200" >
-				</a>
-			</div>
-			<div id="div2_1_1">
-				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
-			</div>
-		</div>	
-		<div id="div2_2">
-			<img src="static\img\1.jpg" width="200" height="200" >
-			<div id="div2_2_1">
-				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
-			</div>
-		</div>
-		<div id="div2_3">
-			<img src="static\img\1.jpg" width="200" height="200" >
-			<div id="div2_2_1">
-				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
-			</div>
-		</div>
-		<div id="div2_4">
-			<img src="static\img\1.jpg" width="200" height="200" >
-			<div id="div2_2_1">
-				<font size=3>大多数图形浏览器都会在作为锚的一部分的图像周围放置特殊的边框
-			</div>
-		</div>
-		<br>
-		<div id="div2_5">
-		<nav aria-label="Page navigation" id="nav1">
-		  <ul class="pagination" text-align="buttom">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#first">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav>
-		</div>
-	</div>
-
-</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="static/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="static/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="static/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
