@@ -26,6 +26,7 @@
 <div class="container" style="width: 500px;">
 			<form class="form-horizontal" method="POST" action="/login">
 			  <div class="form-group">
+				<label class="div1">{{.NoLogin}}</label><br><br>
 			    <label class="div1">请输入帐号：</label>
 			    <div class="col-lg-6">
 			      <input id="uname" class="div1" name="uname" placeholder="Account">
@@ -51,8 +52,18 @@
 
 			  <div class="div2">
 			   
-			    	<a href="/login"><button type="submit"  onclick="return checkInput();">登录</button></a>
+			    	<a href="/login"><button type="submit"  onclick="return checkInput();" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">登录</button></a>
 			      	<button onclick="return backToHome();">返回</button>
+
+					
+					
+					<script>
+					  $('#myButton').on('click', function () {
+					    var $btn = $(this).button('loading')
+					    // business logic...
+					    $btn.button('reset')
+					  })
+					</script>
 			      	<script type="text/javascript">
 				      	function backToHome() {
 				      		window.location.href = "/";

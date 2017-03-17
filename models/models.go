@@ -22,6 +22,7 @@ type order_datas struct {
 	User      string
 	Count     int
 	Prices    int
+	Commented string
 }
 type Comm_datas struct {
 	Id         int
@@ -29,6 +30,10 @@ type Comm_datas struct {
 	Price      int
 	Count      int
 	Sell_count int
+}
+type Comment struct {
+	User    string
+	Content string
 }
 
 func init() {
@@ -100,19 +105,28 @@ func Getcommdity() (datas []Home_comm, err error) {
 	}
 	return
 }
-func Get_comm_np(id int) (name string, price int, comms string) {
-	err := DB.QueryRow("select name ,price ,comment_id from commodity where id =?", id).Scan(&name, &price, &comms)
+func Get_comm_np(id int) (name string, price int) {
+	err := DB.QueryRow("select name ,price from commodity where id =?", id).Scan(&name, &price)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	return
 }
-func Get_comment(id int) (user string, str string, err error) {
-	err = DB.QueryRow("select user,content from comment where id =?", id).Scan(&user, &str)
+func Get_comment(id int) (comments []Comment, err error) {
+
+	rows, err := DB.Query("select user,content from comment where commodity_id =?", id)
 	if err != nil {
-		fmt.Println(err)
 		return
+	}
+	for rows.Next() {
+		var value Comment
+		err = rows.Scan(&value.User, &value.Content)
+		if err != nil {
+			return
+		}
+		comments = append(comments, value)
+
 	}
 	return
 }
@@ -130,14 +144,14 @@ func Add_commodity(cname string, uname string, t int, totle int) (err error) {
 	return
 }
 func Get_order(user string) (s []order_datas, err error) {
-	rows, err := DB.Query(`select id ,comm_name,user_name,count_c,totle_c from order_com where user_name=?`, user)
+	rows, err := DB.Query(`select id ,comm_name,user_name,count_c,totle_c ,is_commented from order_com where user_name=?`, user)
 	if err != nil {
 		return
 	}
 
 	for rows.Next() {
 		var t order_datas
-		err = rows.Scan(&t.Id, &t.Comm_name, &t.User, &t.Count, &t.Prices)
+		err = rows.Scan(&t.Id, &t.Comm_name, &t.User, &t.Count, &t.Prices, &t.Commented)
 
 		if err != nil {
 			return
@@ -149,14 +163,14 @@ func Get_order(user string) (s []order_datas, err error) {
 }
 
 func Get_allcomm() (s []Comm_datas, err error) {
-	rows, err := DB.Query(`select id ,name,price,count,sell_count from commodity`)
+	rows, err := DB.Query(`select id ,name,price,count from commodity`)
 	if err != nil {
 		return
 	}
 
 	for rows.Next() {
 		var t Comm_datas
-		err = rows.Scan(&t.Id, &t.Name, &t.Price, &t.Count, &t.Sell_count)
+		err = rows.Scan(&t.Id, &t.Name, &t.Price, &t.Count)
 
 		if err != nil {
 			return
@@ -167,25 +181,48 @@ func Get_allcomm() (s []Comm_datas, err error) {
 	return
 }
 
-func Check_comment(id int, str string, user string) (err error) {
+func Check_comment(user string, cid int, oid int) (err error) {
 	var t int
-	err = DB.QueryRow("select id from comment where id =? and user=?", id, user).Scan(&t)
+	err = DB.QueryRow("select id from comment where user=? and commodity_id=? and orderid=? ", user, cid, oid).Scan(&t)
 	if err != nil {
-		stmt, _ := DB.Prepare("insert comment set user=?,content=?")
-		defer stmt.Close()
-		_, err = stmt.Exec(user, str)
-		if err != nil {
-			fmt.Println(err)
-		}
+		return
 	}
-	stmt, err := DB.Prepare("update comment set content=? where id=?")
+	return
+}
+func Get_comm_name(id int) (name string, err error) {
+	err = DB.QueryRow("select comm_name from order_com where id =?", id).Scan(&name)
 	if err != nil {
-		fmt.Println(err)
+		return
+	}
+	return
+}
+func Get_id_byname(name string) (id int, err error) {
+	err = DB.QueryRow("select id from commodity where name =?", name).Scan(&id)
+	if err != nil {
+		return
+	}
+	return
+}
+
+//Insert_comment(Login_user, content, commodityid, id)
+func Insert_comment(user string, str string, cid int, id int) (err error) {
+	stmt, err := DB.Prepare("insert into comment (user,content,commodity_id,orderid) values(?,?,?,?)")
+	if err != nil {
+		return
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(str, t)
+	_, err = stmt.Exec(user, str, cid, id)
 	if err != nil {
-		fmt.Println(err)
+		return
+	}
+	stmt1, err := DB.Prepare("update order_com set is_commented=? where id=?")
+	if err != nil {
+		return
+	}
+	defer stmt1.Close()
+	_, err = stmt1.Exec("已评价", id)
+	if err != nil {
+		return
 	}
 	return
 }

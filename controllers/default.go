@@ -12,6 +12,7 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
+	Nologin = ""
 	commodities, err := models.Getcommdity()
 	if err != nil {
 		return

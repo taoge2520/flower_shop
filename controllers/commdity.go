@@ -4,7 +4,6 @@ import (
 	"flower_shop/models"
 	"fmt"
 	"strconv"
-	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -14,32 +13,22 @@ type CommodityController struct {
 }
 
 func (this *CommodityController) Get() {
-	name, price, comments := models.Get_comm_np(1) //商品名
-	strs := strings.Split(comments, ",")
-	if len(strs) == 0 {
+	name, price := models.Get_comm_np(1) //商品名
+	comments, err := models.Get_comment(1)
+	if err != nil {
+		return
+	}
+	if len(comments) == 0 {
 		this.Data["Comm_name"] = name
 		this.Data["Comm_price"] = price
 		this.Data["Comments"] = "无评论"
 		this.TplName = "commdity.html"
 		return
 	}
-	if len(strs) == 1 {
-		this.Data["Comm_name"] = name
-		this.Data["Comm_price"] = price
-		this.Data["Comments"] = strs[0]
-		this.TplName = "commdity.html"
-		return
-	}
-	var slice []string
-	for _, v := range strs {
-		temp, _ := strconv.Atoi(v)
-		_, comment, _ := models.Get_comment(temp)
-		slice = append(slice, comment)
-	}
 
 	this.Data["Comm_name"] = name
 	this.Data["Comm_price"] = price
-	this.Data["Comments"] = slice
+	this.Data["Comments"] = comments
 	this.TplName = "commdity.html"
 }
 

@@ -11,7 +11,11 @@ type RootController struct {
 	beego.Controller
 }
 
-func (c *RootController) Get() {
+func (this *RootController) Get() {
+	Nologin = ""
+	this.TplName = "home1.html"
+}
 
-	c.TplName = "home1.html"
+func (this *RootController) Post() {
+
 }

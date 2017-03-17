@@ -3,7 +3,7 @@ package controllers
 import (
 	"flower_shop/models"
 	"fmt"
-	//"strconv"
+	"strconv"
 
 	"github.com/astaxie/beego"
 )
@@ -17,18 +17,33 @@ func (this *OrderController) Get() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(orders)
+
 	this.Data["Order_datas"] = orders
 	this.TplName = "order.html"
 }
 func (this *OrderController) Post() {
 	str_id := this.Input().Get("Orderid")
 	content := this.Input().Get("Content")
-	fmt.Println(str_id, content)
-	this.Redirect("/order", 302)
-	//id, _ := strconv.Atoi(str_id)
-	//_ = models.Check_comment(id, content, Login_user)
-	//根据订单号获取商品名，拿着商品名去commodity更新相关评论id列表
-	//this.Redirect("/order", 302)
+	id, _ := strconv.Atoi(str_id)
+	cname, err := models.Get_comm_name(id)
+	if err != nil {
 
+		this.Redirect("/order", 302)
+		return
+	}
+	commodityid, err := models.Get_id_byname(cname) //获取商品id
+	if err != nil {
+		this.Redirect("/order", 302)
+		return
+	}
+	err = models.Check_comment(Login_user, commodityid, id)
+	if err != nil {
+		err = models.Insert_comment(Login_user, content, commodityid, id)
+		fmt.Println(err)
+		this.Redirect("/", 302)
+		return
+	}
+	fmt.Println("aready commented!")
+	this.Redirect("/order", 302)
+	return
 }

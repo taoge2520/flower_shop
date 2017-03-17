@@ -9,6 +9,7 @@ import (
 var (
 	Login      bool
 	Login_root bool
+	Nologin    string
 )
 
 type LoginController struct {
@@ -22,6 +23,10 @@ var (
 func (this *LoginController) Get() {
 	Login = false
 	Login_root = Login
+	if !Login {
+		this.Data["NoLogin"] = Nologin
+		this.TplName = "login.html"
+	}
 	this.Data["IsLogin"] = Login
 	this.TplName = "login.html"
 }
@@ -41,7 +46,9 @@ func (this *LoginController) Post() {
 	_, err := models.CheckInput(uname, pwd)
 	if err != nil {
 		Login = false
-		this.Redirect("/", 302)
+		Nologin = "用户名或密码错误"
+		this.Redirect("/login", 302)
+		return
 	}
 	Login = true
 	Login_user = uname
