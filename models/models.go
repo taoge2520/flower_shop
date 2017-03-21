@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/astaxie/beego"
 	_ "github.com/go-sql-driver/mysql"
@@ -163,7 +164,7 @@ func Get_order(user string) (s []order_datas, err error) {
 }
 
 func Get_allcomm() (s []Comm_datas, err error) {
-	rows, err := DB.Query(`select id ,name,price,count from commodity`)
+	rows, err := DB.Query(`select id ,name,price,count from commodity where is_delete=0`)
 	if err != nil {
 		return
 	}
@@ -221,6 +222,45 @@ func Insert_comment(user string, str string, cid int, id int) (err error) {
 	}
 	defer stmt1.Close()
 	_, err = stmt1.Exec("已评价", id)
+	if err != nil {
+		return
+	}
+	return
+}
+func Add_commdity(name string, price int, count int) (err error) {
+	t := time.Now().Format("2006-01-02 15:04:05")
+	stmt, err := DB.Prepare("insert into commodity (name,price,add_time,count) values(?,?,?,?)")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(name, price, t, count)
+	if err != nil {
+		return
+	}
+	return
+}
+func Upd_commdity(id int, name string, price int, count int) (err error) {
+	t := time.Now().Format("2006-01-02 15:04:05")
+	stmt, err := DB.Prepare("update commodity set name=?,price=?,upd_time=?,count=? where id=?")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(name, price, t, count, id)
+	if err != nil {
+		return
+	}
+	return
+}
+func Del_commdity(id int) (err error) {
+	t := time.Now().Format("2006-01-02 15:04:05")
+	stmt, err := DB.Prepare("update commodity set is_delete=?,upd_time=? where id=?")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(1, t, id)
 	if err != nil {
 		return
 	}

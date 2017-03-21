@@ -17,4 +17,7 @@ func init() {
 	beego.Router("/tuijian", &controllers.TuijianController{})
 	beego.Router("/root", &controllers.RootController{})
 	beego.Router("/manage", &controllers.Manage_comController{})
+	beego.Router("/manage_com/add", &controllers.Manage_comController{}, "post:Add")
+	beego.Router("/manage_com/upd", &controllers.Manage_comController{}, "post:Upd")
+	beego.Router("/manage_com/del", &controllers.Manage_comController{}, "post:Del")
 }
