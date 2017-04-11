@@ -4,6 +4,7 @@ import (
 	"flower_shop/models"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/astaxie/beego"
 )
@@ -13,19 +14,26 @@ type CommodityController struct {
 }
 
 func (this *CommodityController) Get() {
-	name, price := models.Get_comm_np(1) //商品名
-	comments, err := models.Get_comment(1)
+	str := this.Ctx.Input.Param(":id")
+	h := strings.Split(str, "=")
+	fmt.Println(h)
+	id, _ := strconv.Atoi(h[1])
+
+	name, price, picture := models.Get_comm_np(id) //商品名
+	comments, err := models.Get_comment(id)
 	if err != nil {
 		return
 	}
 	if len(comments) == 0 {
+		var t []models.Comment
+		this.Data["Pic_show"] = "/static/img/" + picture
 		this.Data["Comm_name"] = name
 		this.Data["Comm_price"] = price
-		this.Data["Comments"] = "无评论"
+		this.Data["Comments"] = t
 		this.TplName = "commdity.html"
 		return
 	}
-
+	this.Data["Pic_show"] = "/static/img/" + picture
 	this.Data["Comm_name"] = name
 	this.Data["Comm_price"] = price
 	this.Data["Comments"] = comments

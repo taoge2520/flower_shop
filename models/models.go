@@ -106,8 +106,8 @@ func Getcommdity() (datas []Home_comm, err error) {
 	}
 	return
 }
-func Get_comm_np(id int) (name string, price int) {
-	err := DB.QueryRow("select name ,price from commodity where id =?", id).Scan(&name, &price)
+func Get_comm_np(id int) (name string, price int, pic string) {
+	err := DB.QueryRow("select name ,price ,picture from commodity where id =?", id).Scan(&name, &price, &pic)
 	if err != nil {
 		fmt.Println(err)
 		return

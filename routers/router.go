@@ -11,7 +11,7 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/regist", &controllers.RegistController{})
 	beego.Router("/warning", &controllers.WarningController{})
-	beego.Router("/commodity", &controllers.CommodityController{})
+	beego.Router("/commodity/:id", &controllers.CommodityController{})
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/order", &controllers.OrderController{})
 	beego.Router("/tuijian", &controllers.TuijianController{})

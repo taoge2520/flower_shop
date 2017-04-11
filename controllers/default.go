@@ -23,7 +23,7 @@ func (c *MainController) Get() {
 		Describe := "Desc" + str
 		c.Data[Describe] = v.Name
 		Picture := "Pic" + str
-		c.Data[Picture] = v.Picture
+		c.Data[Picture] = "static/img/" + v.Picture
 		i++
 	}
 	c.Data["IsLogin"] = Login

@@ -41,27 +41,31 @@ INSERT INTO `comment` (`id`, `user`, `content`, `commodity_id`, `orderid`) VALUE
 
 -- 导出  表 flower_shop.commodity 结构
 CREATE TABLE IF NOT EXISTS `commodity` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `price` int(11) NOT NULL,
   `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `upd_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `count` int(11) NOT NULL,
-  `picture` varchar(50) DEFAULT NULL,
-  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1为无存货'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `picture` varchar(50) DEFAULT 'static/img/juhua.jpg',
+  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1为无存货',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  flower_shop.commodity 的数据：~8 rows (大约)
 DELETE FROM `commodity`;
 /*!40000 ALTER TABLE `commodity` DISABLE KEYS */;
-INSERT INTO `commodity` (`id`, `name`, `price`, `add_time`, `count`, `picture`, `is_delete`) VALUES
-	(1, '菊花1', 10, '2017-03-14 16:40:01', 10, 'static/img/juhua.jpg', 0),
-	(2, '小兰花', 15, '2017-03-10 15:42:44', 20, 'static/img/lanhua.jpg', 0),
-	(3, '兰花', 20, '2017-03-07 15:39:01', 30, 'static/img/lanhua.jpg', 0),
-	(4, '菊花', 23, '2017-03-07 15:29:14', 12, 'static/img/juhua.jpg', 0),
-	(5, '菊花', 16, '2017-03-07 15:29:30', 24, 'static/img/juhua.jpg', 0),
-	(6, '菊花', 45, '2017-03-07 15:29:54', 64, 'static/img/juhua.jpg', 0),
-	(7, '菊花', 45, '2017-03-07 15:30:19', 78, 'static/img/juhua.jpg', 0),
-	(8, '菊花', 15, '2017-03-07 15:30:37', 50, 'static/img/juhua.jpg', 0);
+INSERT INTO `commodity` (`id`, `name`, `price`, `add_time`, `upd_time`, `count`, `picture`, `is_delete`) VALUES
+	(1, '菊花1', 10, '2017-04-11 19:56:27', '2017-04-11 19:56:27', 10, 'juhua.jpg', 0),
+	(2, '小兰花', 15, '2017-04-11 19:56:32', '2017-04-11 19:56:32', 20, 'lanhua.jpg', 0),
+	(3, '兰花', 20, '2017-04-11 19:56:39', '2017-04-11 19:56:39', 30, 'lanhua.jpg', 0),
+	(4, '菊花2', 23, '2017-04-11 20:53:00', '2017-04-11 20:53:00', 12, 'juhua.jpg', 0),
+	(5, '菊花3', 16, '2017-04-11 20:53:03', '2017-04-11 20:53:03', 24, 'juhua.jpg', 0),
+	(6, '菊花4', 45, '2017-04-11 20:53:06', '2017-04-11 20:53:06', 64, 'juhua.jpg', 0),
+	(7, '菊花5', 45, '2017-04-11 20:53:08', '2017-04-11 20:53:08', 78, 'juhua.jpg', 0),
+	(8, '菊花6', 15, '2017-04-11 20:53:11', '2017-04-11 20:53:11', 50, 'juhua.jpg', 0),
+	(9, '狗尾巴花', 1, '2017-04-11 19:57:02', '2017-04-11 19:57:02', 50, 'juhua.jpg', 1),
+	(10, '狗尾巴花', 1, '2017-04-11 19:57:07', '2017-04-11 19:57:07', 50, 'juhua.jpg', 1);
 /*!40000 ALTER TABLE `commodity` ENABLE KEYS */;
 
 -- 导出  表 flower_shop.order_com 结构
