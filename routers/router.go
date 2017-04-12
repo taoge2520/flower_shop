@@ -11,13 +11,19 @@ func init() {
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/regist", &controllers.RegistController{})
 	beego.Router("/warning", &controllers.WarningController{})
-	beego.Router("/commodity", &controllers.CommodityController{})
+	beego.Router("/commodity/:id", &controllers.CommodityController{})
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/order", &controllers.OrderController{})
 	beego.Router("/tuijian", &controllers.TuijianController{})
 	beego.Router("/root", &controllers.RootController{})
+
 	beego.Router("/manage", &controllers.Manage_comController{})
 	beego.Router("/manage_com/add", &controllers.Manage_comController{}, "post:Add")
 	beego.Router("/manage_com/upd", &controllers.Manage_comController{}, "post:Upd")
 	beego.Router("/manage_com/del", &controllers.Manage_comController{}, "post:Del")
+
+	beego.Router("/manage_user", &controllers.Manage_userController{})
+	beego.Router("/manage_user/add", &controllers.Manage_userController{}, "post:Add")
+	//beego.Router("/manage_user/upd", &controllers.Manage_userController{}, "post:Upd")
+	beego.Router("/manage_user/del", &controllers.Manage_userController{}, "post:Del")
 }

@@ -32,6 +32,12 @@ type Comm_datas struct {
 	Count      int
 	Sell_count int
 }
+type User_datas struct {
+	Id    int
+	Uname string
+	Pwd   string
+	Phone string
+}
 type Comment struct {
 	User    string
 	Content string
@@ -106,10 +112,30 @@ func Getcommdity() (datas []Home_comm, err error) {
 	}
 	return
 }
-func Get_comm_np(id int) (name string, price int) {
-	err := DB.QueryRow("select name ,price from commodity where id =?", id).Scan(&name, &price)
+func Get_comm_np(id int) (name string, price int, pic string) {
+	err := DB.QueryRow("select name ,price ,picture from commodity where id =?", id).Scan(&name, &price, &pic)
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+	return
+}
+func Get_comm_npc(id int) (name string, price int, count int) {
+	err := DB.QueryRow("select name ,price ,count from commodity where id =?", id).Scan(&name, &price, &count)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	return
+}
+func Decrease(id int, c int) (err error) {
+	stmt, err := DB.Prepare("update commodity set count=? where id=?")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(c, id)
+	if err != nil {
 		return
 	}
 	return
@@ -181,7 +207,24 @@ func Get_allcomm() (s []Comm_datas, err error) {
 	}
 	return
 }
+func Get_alluser() (s []User_datas, err error) {
+	rows, err := DB.Query(`select id ,uname,pwd,phone from user`)
+	if err != nil {
+		return
+	}
 
+	for rows.Next() {
+		var t User_datas
+		err = rows.Scan(&t.Id, &t.Uname, &t.Pwd, &t.Phone)
+
+		if err != nil {
+			return
+		}
+		s = append(s, t)
+
+	}
+	return
+}
 func Check_comment(user string, cid int, oid int) (err error) {
 	var t int
 	err = DB.QueryRow("select id from comment where user=? and commodity_id=? and orderid=? ", user, cid, oid).Scan(&t)
@@ -240,6 +283,19 @@ func Add_commdity(name string, price int, count int) (err error) {
 	}
 	return
 }
+func Add_user(name string, pwd string, phone string) (err error) {
+	//t := time.Now().Format("2006-01-02 15:04:05")
+	stmt, err := DB.Prepare("insert into user (uname,pwd,phone) values(?,?,?)")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(name, pwd, phone)
+	if err != nil {
+		return
+	}
+	return
+}
 func Upd_commdity(id int, name string, price int, count int) (err error) {
 	t := time.Now().Format("2006-01-02 15:04:05")
 	stmt, err := DB.Prepare("update commodity set name=?,price=?,upd_time=?,count=? where id=?")
@@ -261,6 +317,18 @@ func Del_commdity(id int) (err error) {
 	}
 	defer stmt.Close()
 	_, err = stmt.Exec(1, t, id)
+	if err != nil {
+		return
+	}
+	return
+}
+func Del_user(id int) (err error) {
+	stmt, err := DB.Prepare("delete from user where id=?")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(id)
 	if err != nil {
 		return
 	}

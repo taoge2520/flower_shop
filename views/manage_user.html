@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>订单查看</title>
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<style type="text/css">
+		table,td,th
+{
+	border:1px solid black;
+}
+table
+{
+	width:100%;
+}
+th
+{
+	height:50px;
+}
+.box{
+    width:25%; margin-top:10%; margin:auto; padding:28px;
+    height:450px; border:1px #111 solid;
+    display:none;            /* 默认对话框隐藏 */
+}
+.box.show{display:block;} 
+.box .x{ font-size:18px; text-align:right; display:block;}
+.box input{width:40%; font-size:18px; margin-top:18px;}
+	</style>
+</head>
+<body>
+	<div class="bs-example" data-example-id="striped-table">
+	    <table class="table">
+	      <thead>
+	        <tr>
+	          <th>用户id</th>
+	          <th>用户名</th>
+	          <th>密码</th>
+	          <th>手机号</th>
+	      
+	          
+	        </tr>
+	      </thead>
+	      <tbody>
+	        {{range .Alluser}}
+			<tr>
+	          <td>{{.Id}}</td>
+	          <td>{{.Uname}}</td>
+	          <td>{{.Pwd}}</td>
+	          <td>{{.Phone}}</td>
+	         
+	        </tr>
+			{{end}}	       
+	      </tbody>
+	    </table>
+	  </div><!-- /example -->
+	  <input type="button" onClick="msgbox(1)" value="增加用户" style="float: right;">
+		<br><br>
+<!-- 		<input type="button" onClick="msgbox1(1)" value="修改用户" style="float: right;">-->
+<!--		<br><br>-->
+ 		<input type="button" onClick="msgbox2(1)" value="删除用户" style="float: right;">
+		<br>
+	  <a href="/root"><p align="right">返回</p></a>
+	
+
+	 <script>  
+        function msgbox(n){
+            document.getElementById('inputbox1').style.display=n?'block':'none';     /* 点击按钮打开/关闭 对话框 */
+        }
+ 		function msgbox1(n){
+            document.getElementById('inputbox2').style.display=n?'block':'none';     /* 点击按钮打开/关闭 对话框 */
+        }
+		function msgbox2(n){
+            document.getElementById('inputbox3').style.display=n?'block':'none';     /* 点击按钮打开/关闭 对话框 */
+        }
+     </script>  
+     <form action="/manage_user/add" method="post">
+     	<div id='inputbox1' class="box">
+        <a class='x' href=''; onclick="msgbox(0); return false;">关闭</a>
+        <p>用户名：</p>
+        <input type="text" name="Uname">
+        <p>密码：</p>
+        <input type="text" name="Pwd">
+		<p>手机号：</p>
+        <input type="text" name="Phone">
+        <input type="submit" value="确定">
+     </div>
+     </form>
+
+	 
+
+	 <form action="/manage_user/del" method="post">
+     	<div id='inputbox3' class="box">
+        <a class='x' href=''; onclick="msgbox2(0); return false;">关闭</a>
+        <p>用户id：</p>
+        <input type="text" name="Id">
+        <input type="submit" value="确定">
+     </div>
+     </form>
+	  
+</body>
+</html>
