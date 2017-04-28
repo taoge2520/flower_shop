@@ -9,8 +9,13 @@ import (
 func init() {
 	beego.Router("/login", &controllers.LoginController{}) //使用基础路由
 	beego.Router("/", &controllers.MainController{})
+	beego.Router("/home_search", &controllers.Home_searchController{})
+	beego.Router("/gouwuche", &controllers.ShopcarController{})
+	beego.Router("/gouwuche/del", &controllers.ShopcarController{}, "post:Del")
+
 	beego.Router("/regist", &controllers.RegistController{})
 	beego.Router("/warning", &controllers.WarningController{})
+	beego.Router("/user_warning", &controllers.User_warningController{})
 	beego.Router("/commodity/:id", &controllers.CommodityController{})
 	beego.Router("/user", &controllers.UserController{})
 	beego.Router("/order", &controllers.OrderController{})

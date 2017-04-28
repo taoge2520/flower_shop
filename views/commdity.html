@@ -7,6 +7,9 @@
 		<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 		 <!-- Stylesheets -->
 		<link href="/static/css/bootstrap.min.css" rel="stylesheet" />
     <style type="text/css">
@@ -68,28 +71,73 @@
     			
     		</div>
     	</div>
-	<form action="/commodity/:id={{.Page}}" method="post">
+	<form name="form" method="post" action="#">
    <div class="responsive1">
     <div class="col-md-12 column">
     <br><br><br>
-      <p>商品名称：{{.Comm_name}}</p>
+	  <br>
+      <label>商品名称：</label><br>
       <br>
-      <p>商品价格：{{.Comm_price}}</p>
+      <input name="Name" type="text" value="{{.Comm_name}}" readonly/>
+      <br>
+	  <br>
+      <label>商品价格：</label><br>
+      <br>
+      <input name="Pirce" type="text" value="{{.Comm_price}}" readonly/>
       <br>
       <label>购买数量：</label><br>
       <br>
-      <input type="text"  placeholder="1" aria-describedby="basic-addon1" name="Count">
+      <input id="shuru" type="text"  placeholder="1" aria-describedby="basic-addon1" name="Count">
       <br>
       <br>
-      <button type="submit" class="nav nav-pills pull-buttom">购买</button>
+	 <input type="button" value="添加购物车" class="nav nav-pills pull-buttom" onClick=send()>
+	  <input type="button" value="购买" class="nav nav-pills pull-buttom" data-toggle="modal" data-target="#myModal">
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	<div class="modal-content">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+	×
+	</button>
+	<h4 class="modal-title" id="myModalLabel">
+	支付购买
+	</h4>
+	</div>
+	<div class="modal-body">
+	点击确定购买商品，点击取消放弃购买
+	</div>
+	<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">取消
+	</button>
+	<button type="button" class="btn btn-primary" onClick=preview()>
+	确定
+	</button>
+	</div>
+	</div>
+	</div>
+	</div>									
     </div>
   </div> 
-  </form>
-
+	</form>
+ 
 	<div class="floatDiv" style="position: fixed; width: 200px; height: 200px; right: 10px; bottom: 20px; background-color: black; z-index: 1000;">
 		<a href="/commodity/:id=1"><img src="/static/img/tuijian1.jpg"></a>
 	</div>
 
 </div>
+	<script language=javascript>
+		function send()
+		{
+		
+		document.form.action="/gouwuche"
+		document.form.submit()
+		}
+		function preview()
+		{
+		document.form.action="/commodity/:id={{.Page}}"
+		document.form.submit()
+		}
+	</script>
 </body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>订单查看</title>
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+	<style type="text/css">
+		table,td,th
+{
+	border:1px solid black;
+}
+table
+{
+	width:100%;
+}
+th
+{
+	height:50px;
+}
+.box{
+    width:50%; margin-top:10%; margin:auto; padding:28px;
+    height:350px; border:1px #111 solid;
+    display:none;            /* 默认对话框隐藏 */
+}
+.box.show{display:block;} 
+.box .x{ font-size:18px; text-align:right; display:block;}
+.box input{width:80%; font-size:18px; margin-top:18px;}
+	</style>
+</head>
+<body>
+	<div class="bs-example" data-example-id="striped-table">
+	    <table class="table">
+	      <thead>
+	        <tr>  
+			  <th>id号</th> 
+	          <th>商品名</th>
+	          <th>单价</th>
+	          <th>数量</th>
+	          <th>购买操作</th>
+			  <th>删除操作</th>
+			 
+	          
+	        </tr>
+	      </thead>
+	      <tbody>
+	        {{range .Datas}}
+			<tr>
+			<form name="form" method="post" action="/commodity/:id={{.Commodity_id}}">
+	          <td><input name="Id_car" type="text" value="{{.Id}}" readonly/></td>
+			  <td><input name="Name" type="text" value="{{.Name}}" readonly/></td>
+			  <td><input name="Unit" type="text" value="{{.Unit}}" readonly/></td>
+			  <td><input name="Count" type="text" value="{{.Count}}" readonly/></td>
+				
+	          <td><input type="submit" value="购买" class="nav nav-pills pull-buttom" >
+			
+			<form name="form" method="post" action="/gouwuche/del">
+				<td><input name="Id_car" type="hidden" name="Id_car" type="text" value="{{.Id}}"><input type="submit" value="删除" class="nav nav-pills pull-buttom" ></td>
+			</form>
+	        </tr>
+			</form>
+			{{end}}	       
+	      </tbody>
+	    </table>
+	    <br><br>
+	  </div><!-- /example -->
+	  <a href="/"><p align="right">返回</p></a>
+	 	
+    
+
+    
+     
+</div>
+</body>
+</html>

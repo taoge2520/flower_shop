@@ -26,7 +26,7 @@ func (this *RegistController) Post() {
 	}
 	_, err := models.CheckSame(uname)
 	if err == nil {
-		this.Redirect("/warning", 302)
+		this.Redirect("/user_warning", 302)
 		return
 	}
 	err = models.Insert(uname, pwd, phone)

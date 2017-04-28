@@ -24,7 +24,7 @@
 </head>
 <body>
 <div class="container" style="width: 500px;">
-			<form class="form-horizontal" method="POST" action="/login">
+			<form class="form-horizontal" method="POST" action="/login" >
 			  <div class="form-group">
 				<label class="div1">{{.NoLogin}}</label><br><br>
 			    <label class="div1">请输入帐号：</label>
@@ -39,7 +39,7 @@
 			      <input id="pwd" type="password" class="div1" name="pwd" placeholder="Password">
 			    </div>
 			  </div>
-
+				
 			  <div class="form-group">
 			    <div class="div1">
 			      <div class="checkbox">
@@ -51,7 +51,12 @@
 			  </div>
 
 			  <div class="div2">
-			   
+			<div class="form-group">
+				<div class="col-lg-6">
+			   		<input type="text" onclick="createAuthCode()"  name="authCode" readonly="readonly" id="authCode" class="unchanged" style="width:50px;background: #F5FFE8;float:left"   />
+						<input type="text" id="inputCode"   style="width: 40px;" />
+					</div>
+				</div>	
 			    	<a href="/login"><button type="submit"  onclick="return checkInput();" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">登录</button></a>
 			      	<button onclick="return backToHome();">返回</button>
 
@@ -64,6 +69,7 @@
 					    $btn.button('reset')
 					  })
 					</script>
+					
 			      	<script type="text/javascript">
 				      	function backToHome() {
 				      		window.location.href = "/";
@@ -82,7 +88,39 @@
 				      			alert("密码不能为空");
 				      			return false;
 				      		}
+							var inputCode = document.getElementById("inputCode").value
+							 if (inputCode != result) {
+					          alert("请输入正确的验证码");
+					          window.location.href = "/login";
+					          return false;
+					        }
 				      	}
+						var showAuthCode; //在全局 定义验证码
+    						var result; //在全局 定义验证码
+						    var authCodeTrue
+						     function randomNumber(n) {
+						        var rnd = "";
+						        for (var i = 0; i < n; i++)
+						          rnd += Math.floor(Math.random() * 10);
+						        return rnd;
+						      }
+						    function createAuthCode() {
+						      showAuthCode = "";
+						      var authCode = document.getElementById("authCode");
+						     
+						
+						      var num = randomNumber(2);
+						      var num2 = randomNumber(2);
+						
+						      showAuthCode = num + "+" + num2 + "=";
+						      result = parseInt(num) + parseInt(num2)
+						
+						      if (authCode) {
+						        authCode.className = "showAuthCode";
+						        authCode.value = showAuthCode;
+						      }
+
+    }							
 			      	</script>
 			
 			  </div>

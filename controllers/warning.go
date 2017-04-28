@@ -9,7 +9,7 @@ type WarningController struct {
 }
 
 func (this *WarningController) Get() {
-	this.Data["ErrorInfo"] = "用户名已存在"
+	this.Data["ErrorInfo"] = "您已经评论过了"
 	this.TplName = "warning.html"
 	//this.TplName = "test.html"
 }

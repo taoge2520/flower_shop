@@ -48,6 +48,42 @@ func (this *CommodityController) Post() {
 		this.Redirect("/", 302)
 		return
 	}
+	str_shopcar_id := this.Input().Get("Id_car")
+	if str_shopcar_id != "" {
+		shopcar_id, _ := strconv.Atoi(str_shopcar_id)
+		err := models.Delete_shopcar_by_id(shopcar_id) //删除该条购物车记录
+		if err != nil {
+			fmt.Println(err)
+
+		}
+		str := this.Ctx.Input.Param(":id") //添加一条订单记录，更新库存
+		h := strings.Split(str, "=")
+		fmt.Println(h)
+		id, _ := strconv.Atoi(h[1])
+
+		name, price, totle_count := models.Get_comm_npc(id) //商品名
+		count := this.Input().Get("Count")
+
+		t, _ := strconv.Atoi(count)
+		if t == 0 {
+			t = 1
+		}
+		totle := t * price
+
+		err = models.Add_order_com(name, Login_user, t, totle)
+		if err != nil {
+			fmt.Println(err)
+
+		}
+		new_count := totle_count - t
+		err = models.Decrease(id, new_count)
+		if err != nil {
+			fmt.Println(err)
+		}
+		this.Redirect("/gouwuche", 302)
+		return
+	}
+
 	str := this.Ctx.Input.Param(":id")
 	h := strings.Split(str, "=")
 	fmt.Println(h)
@@ -55,11 +91,14 @@ func (this *CommodityController) Post() {
 
 	name, price, totle_count := models.Get_comm_npc(id) //商品名
 	count := this.Input().Get("Count")
-	t, _ := strconv.Atoi(count)
 
+	t, _ := strconv.Atoi(count)
+	if t == 0 {
+		t = 1
+	}
 	totle := t * price
-	//默认的添加行为
-	err := models.Add_commodity(name, Login_user, t, totle)
+
+	err := models.Add_order_com(name, Login_user, t, totle)
 	if err != nil {
 		fmt.Println(err)
 

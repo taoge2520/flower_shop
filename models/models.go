@@ -14,6 +14,7 @@ var (
 )
 
 type Home_comm struct {
+	Id      int
 	Name    string
 	Picture string
 }
@@ -41,6 +42,15 @@ type User_datas struct {
 type Comment struct {
 	User    string
 	Content string
+}
+
+type Shopcars struct {
+	Id           int
+	Name         string
+	Count        int
+	Unit         int
+	Uname        string
+	Commodity_id int
 }
 
 func init() {
@@ -112,6 +122,14 @@ func Getcommdity() (datas []Home_comm, err error) {
 	}
 	return
 }
+func Getcommdity_by_name(name string) (datas Home_comm, err error) {
+	err = DB.QueryRow(`select id ,name ,picture from commodity where name=?`, name).Scan(&datas.Id, &datas.Name, &datas.Picture)
+	if err != nil {
+		return
+	}
+
+	return
+}
 func Get_comm_np(id int) (name string, price int, pic string) {
 	err := DB.QueryRow("select name ,price ,picture from commodity where id =?", id).Scan(&name, &price, &pic)
 	if err != nil {
@@ -157,7 +175,7 @@ func Get_comment(id int) (comments []Comment, err error) {
 	}
 	return
 }
-func Add_commodity(cname string, uname string, t int, totle int) (err error) {
+func Add_order_com(cname string, uname string, t int, totle int) (err error) {
 	//insert into order_com (comm_name,user_name,count_c,totle_c) values("123","test1",10,20)
 	stmt, err := DB.Prepare("insert into order_com (comm_name,user_name,count_c,totle_c) values(?,?,?,?)")
 	if err != nil {
@@ -329,6 +347,47 @@ func Del_user(id int) (err error) {
 	}
 	defer stmt.Close()
 	_, err = stmt.Exec(id)
+	if err != nil {
+		return
+	}
+	return
+}
+func Insert_shopcar(name string, price int, count int, uname string) (err error) {
+	var t int
+	err = DB.QueryRow("select id from commodity where name=?", name).Scan(&t)
+	if err != nil {
+		fmt.Println(err)
+	}
+	stmt, err := DB.Prepare("insert into gouwuche (name,unit,count,username,commodity_id) values(?,?,?,?,?)")
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(name, price, count, uname, t)
+	if err != nil {
+		return
+	}
+	return
+}
+func Get_gouwuche_uname(uname string) (v []Shopcars, err error) {
+	rows, err := DB.Query(`select id,name ,count,unit,commodity_id from gouwuche where username=?`, uname)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var t Shopcars
+		err = rows.Scan(&t.Id, &t.Name, &t.Count, &t.Unit, &t.Commodity_id)
+		if err != nil {
+			return
+		}
+		v = append(v, t)
+
+	}
+	return
+}
+func Delete_shopcar_by_id(id int) (err error) {
+	_, err = DB.Exec("DELETE FROM gouwuche WHERE id=?", id)
 	if err != nil {
 		return
 	}

@@ -27,7 +27,6 @@ func (this *OrderController) Post() {
 	id, _ := strconv.Atoi(str_id)
 	cname, err := models.Get_comm_name(id)
 	if err != nil {
-
 		this.Redirect("/order", 302)
 		return
 	}
@@ -40,10 +39,11 @@ func (this *OrderController) Post() {
 	if err != nil {
 		err = models.Insert_comment(Login_user, content, commodityid, id)
 		fmt.Println(err)
-		this.Redirect("/", 302)
+		this.Redirect("/order", 302)
 		return
 	}
 	fmt.Println("aready commented!")
-	this.Redirect("/order", 302)
+	this.Data["Aready"] = "您已经评论过了"
+	this.Redirect("/warning", 302)
 	return
 }

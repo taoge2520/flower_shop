@@ -62,6 +62,10 @@ div.desc {
 <body>
 <div class="pull-right">
 	<ul class="nav nav-pills pull-right">
+		<form class="navbar-form navbar-left" action="/home_search" method="POST">
+            <input type="text" name="Search" class="form-control" placeholder="输入关键字搜索">
+        </form>
+		<li><a href="/gouwuche">购物车</a></li>
 		<li><a href="/user">用户中心</a></li>
 		{{if .IsLogin}}
 		<li><a href="/login">退出登录</a></li>
@@ -174,7 +178,7 @@ div.desc {
   <br>
   <br>
    <div class="text" >
-          <p text-align="center">Copyright©2012-2016 版权归属 XXX有限公司 闽ICP备********号-25</p>
+          <p text-align="center">Copyright©2012-2017 网上花店设计和实现</p>
     </div>
 
 </div>
