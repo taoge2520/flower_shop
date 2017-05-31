@@ -3,12 +3,22 @@ package controllers
 import (
 	"flower_shop/models"
 	"fmt"
+	"net/smtp"
 	"strconv"
 	"strings"
 
 	"github.com/astaxie/beego"
 )
 
+type Mailto struct {
+	User     string
+	Password string
+	Host     string
+	To       string
+	Mailtype string //类型
+	Subject  string //标题
+	Body     string //内容
+}
 type CommodityController struct {
 	beego.Controller
 }
@@ -61,13 +71,14 @@ func (this *CommodityController) Post() {
 		fmt.Println(h)
 		id, _ := strconv.Atoi(h[1])
 
-		name, price, totle_count := models.Get_comm_npc(id) //商品名
+		name, price, totle_count, sell := models.Get_comm_npc(id) //商品名
 		count := this.Input().Get("Count")
 
 		t, _ := strconv.Atoi(count)
 		if t == 0 {
 			t = 1
 		}
+		remain := sell + t //卖出数量更新
 		totle := t * price
 
 		err = models.Add_order_com(name, Login_user, t, totle)
@@ -76,7 +87,8 @@ func (this *CommodityController) Post() {
 
 		}
 		new_count := totle_count - t
-		err = models.Decrease(id, new_count)
+
+		err = models.Decrease(id, new_count, remain)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -89,13 +101,18 @@ func (this *CommodityController) Post() {
 	fmt.Println(h)
 	id, _ := strconv.Atoi(h[1])
 
-	name, price, totle_count := models.Get_comm_npc(id) //商品名
+	name, price, totle_count, sell := models.Get_comm_npc(id) //商品名
+	if totle_count < 0 {
+		Warnning("商品售罄，若有货可补，请更新库存数量!")
+	}
+
 	count := this.Input().Get("Count")
 
 	t, _ := strconv.Atoi(count)
 	if t == 0 {
 		t = 1
 	}
+	remain := sell + t //卖出数量更新
 	totle := t * price
 
 	err := models.Add_order_com(name, Login_user, t, totle)
@@ -104,10 +121,61 @@ func (this *CommodityController) Post() {
 
 	}
 	new_count := totle_count - t
-	err = models.Decrease(id, new_count)
+	if new_count < 50 {
+		Warnning("库存数量低于设置阈值，请及时补货!")
+	}
+	fmt.Println(new_count, remain)
+	err = models.Decrease(id, new_count, remain)
 	if err != nil {
 		fmt.Println(err)
 	}
 	this.Redirect("/order", 302)
 	return
+}
+func Warnning(str string) {
+	var t Mailto
+	t.User = "18850046590@163.com"
+	t.Password = "ziqun1993"
+	t.Host = "smtp.163.com:25"
+	t.To = "1853988263@qq.com"
+
+	t.Subject = "告警邮件"
+	t.Mailtype = "html"
+	t.Body = `
+    <html>
+    <body>
+    <h3>
+    ` + str + `
+    </h3>
+    </body>
+    </html>
+    `
+	err := t.SendMail()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("send mail success!")
+	}
+}
+func (this Mailto) SendMail() (err error) {
+	hp := strings.Split(this.Host, ":") //hp is :[smtp.163.com 25]
+	//fmt.Print("hp is :", hp)
+	auth := smtp.PlainAuth("", this.User, this.Password, hp[0]) //&{ 18030120049@163.com blt520.. smtp.163.com}
+	//fmt.Print("auth is :", auth)
+	var content_type string
+	if this.Mailtype == "html" {
+		content_type = "Content-Type: text/" + this.Mailtype + "; charset=UTF-8"
+	} else {
+		content_type = "Content-Type: text/plain" + "; charset=UTF-8"
+	}
+
+	msg := []byte("To: " + this.To + "\r\nFrom: " + this.User + "<" + this.User + ">\r\nSubject: " + this.Subject + "\r\n" + content_type + "\r\n\r\n" + this.Body)
+	//fmt.Printf("%s", msg)
+	//fmt.Println("to is :", this.To)
+	send_to := strings.Split(this.To, ";")
+	//fmt.Println("send_to is :", send_to)
+
+	err = smtp.SendMail(this.Host, auth, this.User, send_to, msg)
+
+	return err
 }

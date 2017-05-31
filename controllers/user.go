@@ -17,20 +17,39 @@ func (this *UserController) Get() {
 		return
 
 	}
-	phone, err := models.Get_phone(Login_user)
+	phone, address, postcode, err := models.Get_userdatas(Login_user)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println(address, postcode)
 	this.Data["Phone"] = phone
+	this.Data["Address"] = address
+	this.Data["Postcode"] = postcode
 	this.Data["Username"] = Login_user
 	this.TplName = "user.html"
 }
 
 func (this *UserController) Post() {
 	p := this.Input().Get("Upd_phone")
-	fmt.Println(p)
-	err := models.Upd_phone(Login_user, p)
+	a := this.Input().Get("Upd_address")
+	c := this.Input().Get("Upd_postcode")
+	phone, address, postcode, err := models.Get_userdatas(Login_user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	if p == "" {
+		p = phone
+	}
+	if a == "" {
+		a = address
+	}
+	if c == "" {
+		c = postcode
+	}
+
+	err = models.Upd_p_a_c(Login_user, p, a, c)
 	if err != nil {
 		fmt.Println(err)
 		return

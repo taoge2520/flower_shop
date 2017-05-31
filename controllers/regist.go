@@ -17,6 +17,9 @@ func (this *RegistController) Get() {
 
 func (this *RegistController) Post() {
 	uname := this.Input().Get("uname")
+	addr := this.Input().Get("address")
+	postcode := this.Input().Get("postcode")
+	//取出前端两个数据
 	pwd := this.Input().Get("pwd")
 	phone := this.Input().Get("phone")
 	fmt.Println(uname, pwd, phone)
@@ -29,7 +32,7 @@ func (this *RegistController) Post() {
 		this.Redirect("/user_warning", 302)
 		return
 	}
-	err = models.Insert(uname, pwd, phone)
+	err = models.Insert(uname, pwd, phone, addr, postcode)
 	if err != nil {
 		fmt.Println(err)
 		this.Redirect("/login", 302)

@@ -38,7 +38,12 @@ div.desc {
     margin:0 auto; 
     width: 24.99999%;
 }
-
+.responsive1 {
+    padding: 0 5px;
+    float: right;
+    margin:0 auto; 
+    width: 10%;
+}
 @media only screen and (max-width: 700px){
     .responsive {
         width: 49.99999%;
@@ -75,9 +80,27 @@ div.desc {
 		<li><a href="/regist">注册</a></li>
 	</ul>
 </div>
-
 <h2 style="text-align:center">欢迎来到主页</h2>
+<div>
 
+	<ul class="responsive1" >
+	 <span class="badge">热销</span>
+	<br>
+	  <li class="list-group-item">
+	    <span class="badge">{{.First_count}}</span>
+	    {{.First}}
+	  </li>
+	<li class="list-group-item">
+	    <span class="badge">{{.Second_count}}</span>
+	    {{.Second}}
+	  </li>
+	<li class="list-group-item">
+	    <span class="badge">{{.Third_count}}</span>
+	    {{.Third}}
+	  </li>
+	</ul>
+</div>
+<br><br><br><br><br><br><br><br>
 <div class="responsive">
   <div class="img">
   

@@ -63,19 +63,43 @@ div.desc {
 
 	  <a href="#" class="list-group-item active">
 	    <h4 class="list-group-item-heading">用户中心</h4>
+		</a>
+		
 	    <br>
 	    <p class="list-group-item-text">用户名：{{.Username}}</p>
-  </a>
   <form action="/user" method="post">
   	<div class="pull-left">
 		<ul class="nav nav-pills pull-left">
-			<li><a href="#">手机号：<input type="text"  placeholder="{{.Phone}}" aria-describedby="basic-addon1" name="Upd_phone"></a></li>
-			<button type="submit" style="height:50px;width:100px;" />修改</button> 
+			<li><a href="#">手机号：<input type="text"  placeholder="{{.Phone}}" aria-describedby="basic-addon1" name="Upd_phone">&nbsp<button type="submit" style="height:30px;width:50px;" />修改</button> </a></li>
+			
 		</ul>
 	</div>
   </form>
+<br><br><br>
+<form action="/user" method="post">
+  	<div class="nav nav-pills pull-left">
+		<br>
+		<ul class="nav nav-pills pull-left">
+		    <li><a href="#">收货地址：<input type="text"  placeholder="{{.Address}}" aria-describedby="basic-addon1" name="Upd_address">&nbsp<button type="submit" style="height:30px;width:50px;" />修改</button> </a></li>
+			
+		</ul>
+	</div>
+  </form>
+<br><br><br><br><br>
+<form action="/user" method="post">
+  	<div class="nav nav-pills pull-left">
+		<ul class="nav nav-pills pull-left">
+			<li><a href="#">邮编：<input type="text"  placeholder="{{.Postcode}}" aria-describedby="basic-addon1" name="Upd_postcode">&nbsp<button type="submit" style="height:30px;width:50px;" />修改</button> </a></li>
+			
+		</ul>
+	</div>
+  </form>
+
+
+
+
 </div>
-	<br><br><br><br>
-	<a href="/order">订单查看</a>
+	<br><br><br><br><br><br><br><br>
+	&nbsp&nbsp<a href="/order">订单查看</a>
 </body>
 </html>

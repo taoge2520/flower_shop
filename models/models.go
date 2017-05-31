@@ -66,20 +66,20 @@ func CheckSame(name string) (id int, err error) {
 	}
 	return
 }
-func Get_phone(uname string) (phone string, err error) {
-	err = DB.QueryRow("select phone from user where uname=?", uname).Scan(&phone)
+func Get_userdatas(uname string) (phone string, addr string, postcode string, err error) {
+	err = DB.QueryRow("select phone,addr,postcode from user where uname=?", uname).Scan(&phone, &addr, &postcode)
 	if err != nil {
 		return
 	}
 	return
 }
-func Upd_phone(uname string, p string) (err error) {
-	stmt, err := DB.Prepare("update user set phone=? where uname=?")
+func Upd_p_a_c(uname string, p string, a string, c string) (err error) {
+	stmt, err := DB.Prepare("update user set phone=?,addr=?,postcode=? where uname=?")
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(p, uname)
+	_, err = stmt.Exec(p, a, c, uname)
 	if err != nil {
 		return
 	}
@@ -93,13 +93,13 @@ func CheckInput(name string, pwd string) (id int, err error) {
 	return
 }
 
-func Insert(name string, pwd string, phone string) (err error) {
-	stmt, err := DB.Prepare("insert user set uname=?,pwd=?,phone=?")
+func Insert(name string, pwd string, phone string, addr string, postcode string) (err error) {
+	stmt, err := DB.Prepare("insert user set uname=?,pwd=?,phone=?,addr=?,postcode=?")
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(name, pwd, phone)
+	_, err = stmt.Exec(name, pwd, phone, addr, postcode)
 	if err != nil {
 		return
 	}
@@ -138,21 +138,40 @@ func Get_comm_np(id int) (name string, price int, pic string) {
 	}
 	return
 }
-func Get_comm_npc(id int) (name string, price int, count int) {
-	err := DB.QueryRow("select name ,price ,count from commodity where id =?", id).Scan(&name, &price, &count)
+func Get_comm_npc(id int) (name string, price int, count int, sellcount int) {
+	err := DB.QueryRow("select name ,price ,count ,sell_count from commodity where id =?", id).Scan(&name, &price, &count, &sellcount)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	return
 }
-func Decrease(id int, c int) (err error) {
-	stmt, err := DB.Prepare("update commodity set count=? where id=?")
+func Ranking() (names []string, sell_counts []int) {
+	rows, err := DB.Query("select name ,sell_count from commodity order by sell_count desc limit 3")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for rows.Next() {
+		var name string
+		var t int
+		err = rows.Scan(&name, &t)
+		if err != nil {
+			return
+		}
+		names = append(names, name)
+		sell_counts = append(sell_counts, t)
+
+	}
+	return
+}
+func Decrease(id int, c int, sellcount int) (err error) {
+	stmt, err := DB.Prepare("update commodity set count=?,sell_count=? where id=?")
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(c, id)
+	_, err = stmt.Exec(c, sellcount, id)
 	if err != nil {
 		return
 	}
