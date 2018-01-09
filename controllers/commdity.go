@@ -3,7 +3,7 @@ package controllers
 import (
 	"flower_shop/models"
 	"fmt"
-	"net/smtp"
+
 	"strconv"
 	"strings"
 
@@ -132,50 +132,4 @@ func (this *CommodityController) Post() {
 	this.Redirect("/order", 302)
 	return
 }
-func Warnning(str string) {
-	var t Mailto
-	t.User = "18850046590@163.com"
-	t.Password = "ziqun1993"
-	t.Host = "smtp.163.com:25"
-	t.To = "1853988263@qq.com"
 
-	t.Subject = "告警邮件"
-	t.Mailtype = "html"
-	t.Body = `
-    <html>
-    <body>
-    <h3>
-    ` + str + `
-    </h3>
-    </body>
-    </html>
-    `
-	err := t.SendMail()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println("send mail success!")
-	}
-}
-func (this Mailto) SendMail() (err error) {
-	hp := strings.Split(this.Host, ":") //hp is :[smtp.163.com 25]
-	//fmt.Print("hp is :", hp)
-	auth := smtp.PlainAuth("", this.User, this.Password, hp[0]) //&{ 18030120049@163.com blt520.. smtp.163.com}
-	//fmt.Print("auth is :", auth)
-	var content_type string
-	if this.Mailtype == "html" {
-		content_type = "Content-Type: text/" + this.Mailtype + "; charset=UTF-8"
-	} else {
-		content_type = "Content-Type: text/plain" + "; charset=UTF-8"
-	}
-
-	msg := []byte("To: " + this.To + "\r\nFrom: " + this.User + "<" + this.User + ">\r\nSubject: " + this.Subject + "\r\n" + content_type + "\r\n\r\n" + this.Body)
-	//fmt.Printf("%s", msg)
-	//fmt.Println("to is :", this.To)
-	send_to := strings.Split(this.To, ";")
-	//fmt.Println("send_to is :", send_to)
-
-	err = smtp.SendMail(this.Host, auth, this.User, send_to, msg)
-
-	return err
-}
